@@ -35,7 +35,7 @@ class PlayerManager:
         return self.create(list([first_name, last_name, birthdate, gender, rank]))
 
     def load_from_json(self):
-        with open("JSON/players2.json") as f:
+        with open("JSON/players.json") as f:
             self.players = []
             players = json.load(f)
             for player_data in players:
