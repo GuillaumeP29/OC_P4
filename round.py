@@ -29,6 +29,10 @@ class Round:
             self.ID_tuple = []
         except AttributeError as e:
             errors.append(("ID_tuple", str(e)))
+        try:
+            self.isover = False
+        except AttributeError as e:
+            errors.appends(("isover", str(e)))
         if errors:
             raise Exception(errors)
 
@@ -103,3 +107,12 @@ class Round:
             self.__name = "round{}".format(str(value))
         else:
             raise AttributeError("Le numéro de tour doit être un nombre entier positif")
+
+    @property
+    def isover(self) -> bool:
+        return self.__isover
+
+    @isover.setter
+    def isover(self, value: bool):
+        if isinstance(value, bool):
+            self.__isover = value

@@ -16,7 +16,8 @@ class Tournament:
 
     def __init__(
         self, name: str, location: str, date: str, time_control: str, description: str,
-        number_of_players: int, number_of_rounds: int = 4, ID: int = None, players: list = None, rounds: dict = None
+        number_of_players: int, number_of_rounds: int = 4, ID: int = None, players: list = None, rounds: dict = None,
+        isover: bool = False
     ):
         errors = []
         try:
@@ -63,6 +64,10 @@ class Tournament:
             self.rounds = rounds
         except AttributeError as e:
             errors.append(("rounds", str(e)))
+        try:
+            self.isover = isover
+        except AttributeError as e:
+            errors.append(("isover", str(e)))
         if errors:
             raise Exception(errors)
 
@@ -246,6 +251,25 @@ class Tournament:
                 self.__matchs_combinations = value
         else:
             raise AttributeError("Les combinaisons du matchs doivent être envoyées dans une liste")
+
+    @property
+    def isover(self) -> bool:
+        return self.__isover
+
+    @isover.setter
+    def isover(self, value: bool):
+        if isinstance(value, bool):
+            value = value
+        elif isinstance(value, str):
+            if value == "In progress":
+                value = False
+            elif value == "Complete":
+                value = True
+            else:
+                raise AttributeError("L'état du tournoi doit être 'In progress' ou 'complete'")
+        else:
+            raise AttributeError("l'attribut 'isover' doit recevoir un booléen ou un string")
+        self.__isover = value
 
     def create_round(self, round_number: int):
         pass
