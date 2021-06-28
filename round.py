@@ -4,11 +4,33 @@ from match import Match
 class Round:
 
     def __init__(self, round_number: int, number_of_players: int, matchs: dict = None):
+        errors = []
+        try:
             self.round_number = round_number
+        except AttributeError as e:
+            errors.append(("round_number", str(e)))
+        try:
             self.number_of_players = number_of_players
+        except AttributeError as e:
+            errors.append(("number_of_players", str(e)))
+        try:
             self.number_of_matchs = int(number_of_players / 2)
+        except AttributeError as e:
+            errors.append(("number_of_matchs", str(e)))
+        try:
             self.matchs = matchs
+        except AttributeError as e:
+            errors.append(("matchs", str(e)))
+        try:
             self.name = round_number
+        except AttributeError as e:
+            errors.append(("name", str(e)))
+        try:
+            self.ID_tuple = []
+        except AttributeError as e:
+            errors.append(("ID_tuple", str(e)))
+        if errors:
+            raise Exception(errors)
 
     @property
     def round_number(self) -> int:

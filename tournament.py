@@ -18,17 +18,53 @@ class Tournament:
         self, name: str, location: str, date: str, time_control: str, description: str,
         number_of_players: int, number_of_rounds: int = 4, ID: int = None, players: list = None, rounds: dict = None
     ):
+        errors = []
+        try:
             self.name = name
+        except AttributeError as e:
+            errors.append(("name", str(e)))
+        try:
             self.location = location
+        except AttributeError as e:
+            errors.append(("location", str(e)))
+        try:
             self.date = date
+        except AttributeError as e:
+            errors.append(("date", str(e)))
+        try:
             self.time_control = time_control
+        except AttributeError as e:
+            errors.append(("time_control", str(e)))
+        try:
             self.description = description
+        except AttributeError as e:
+            errors.append(("description", str(e)))
+        try:
             self.number_of_players = number_of_players
+        except AttributeError as e:
+            errors.append(("number_of_players", str(e)))
+        try:
             self.number_of_rounds = number_of_rounds
+        except AttributeError as e:
+            errors.append(("number_of_rounds", str(e)))
+        try:
             self.ID = ID
+        except AttributeError as e:
+            errors.append(("ID", str(e)))
+        try:
             self.matchs_combinations = []
+        except AttributeError as e:
+            errors.append(("matchs_combinations", str(e)))
+        try:
             self.players = players
+        except AttributeError as e:
+            errors.append(("players", str(e)))
+        try:
             self.rounds = rounds
+        except AttributeError as e:
+            errors.append(("rounds", str(e)))
+        if errors:
+            raise Exception(errors)
 
     @property
     def name(self) -> str:

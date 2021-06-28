@@ -14,12 +14,33 @@ class Player:
                  self, first_name: str, last_name: str, birthdate: str, gender: str,
                  rank: int = 3000, ID: int = None
                 ):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.birthdate = birthdate
-        self.gender = gender
-        self.rank = rank
-        self.ID = ID
+        errors = []
+        try:
+            self.first_name = first_name
+        except AttributeError as e:
+            errors.append(("first_name", str(e)))
+        try:
+            self.last_name = last_name
+        except AttributeError as e:
+            errors.append(("last_name", str(e)))
+        try:
+            self.birthdate = birthdate
+        except AttributeError as e:
+            errors.append(("birthdate", str(e)))
+        try:
+            self.gender = gender
+        except AttributeError as e:
+            errors.append(("gender", str(e)))
+        try:
+            self.rank = rank
+        except AttributeError as e:
+            errors.append(("rank", str(e)))
+        try:
+            self.ID = ID
+        except AttributeError as e:
+            errors.append(("ID", str(e)))
+        if errors:
+            raise Exception(errors)
 
     @property
     def first_name(self) -> str:

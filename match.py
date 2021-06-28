@@ -1,9 +1,24 @@
 class Match:
     def __init__(self, player1: int, player2: int, result1: float = None, result2: float = None):
+        errors = []
+        try:
             self.player1 = player1
+        except AttributeError as e:
+            errors.append(("player1", str(e)))
+        try:
             self.player2 = player2
+        except AttributeError as e:
+            errors.append(("player2", str(e)))
+        try:
             self.result1 = result1
-            self.result2 = result2    
+        except AttributeError as e:
+            errors.append(("result1", str(e)))
+        try:
+            self.result2 = result2
+        except AttributeError as e:
+            errors.append(("result2", str(e)))
+        if errors:
+            raise Exception(errors) 
             
     @property
     def player1(self) -> int:
