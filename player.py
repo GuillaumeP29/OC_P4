@@ -11,7 +11,7 @@ class Player:
         Female = "F"
 
     def __init__(
-                 self, first_name: str, last_name: str, birthdate: str, gender: str,
+                 self, first_name: str, last_name: str, birthdate: str, gender: Union[Gender, str],
                  rank: int = 3000, ID: int = None
                 ):
         errors = []
@@ -123,7 +123,7 @@ class Player:
         return {
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "birthdate": self.birthdate,
+            "birthdate": self.birthdate.isoformat(),
             "gender": self.gender,
             "rank": self.rank,
             "ID": self.ID
