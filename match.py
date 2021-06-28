@@ -18,8 +18,8 @@ class Match:
         except AttributeError as e:
             errors.append(("result2", str(e)))
         if errors:
-            raise Exception(errors) 
-            
+            raise Exception(errors)
+
     @property
     def player1(self) -> int:
         return self.__player1

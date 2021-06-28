@@ -15,7 +15,7 @@ class Tournament:
         Coup_rapide = "Coup rapide"
 
     def __init__(
-        self, name: str, location: str, date: str, time_control: str, description: str,
+        self, name: str, location: str, date: str, time_control: Union[TimeControl, str], description: str,
         number_of_players: int, number_of_rounds: int = 4, ID: int = None, players: list = None, rounds: dict = None,
         isover: bool = False
     ):
@@ -272,21 +272,71 @@ class Tournament:
         self.__isover = value
 
     def create_round(self, round_number: int):
-        pass
+        round = Round(round_number, self.number_of_players)
+        round_name = "round{}".format(str(round_number))
+        self.rounds[round_name] = round
+        self.players = round.sort_players(self.players)
+        self.matchs_combinations = round.create_matchs(self.players, self.matchs_combinations)
+        return round
 
     def set_scores(self, scores: list):
-        pass
+        rounds_list = list(self.rounds.values())
+        round_scores = rounds_list[-1].set_scores(scores)
+        for score in round_scores:
+            for player in self.players:
+                if score["ID"] == player["ID"]:
+                    player["score"] += score["score"]
+        if len(self.rounds) == self.number_of_rounds and rounds_list[-1].isover:
+            self.isover = True
 
     def serialize(self) -> dict:
+        rounds_dict = {}
+        last_round = ""
+        for round in self.rounds:
+            rounds_dict[round] = self.rounds[round].serialize()
+            last_round = round
+        if last_round != "":
+            self.players = self.rounds[last_round].sort_players(self.players)
+        state = ""
+        if self.isover:
+            state = "Complete"
+        else:
+            state = "In progress"
         return {
                 "name": self.name,
                 "location": self.location,
-                "date": self.date,
+                "date": self.date.isoformat(),
                 "time control": self.time_control,
                 "description": self.description,
                 "number_of_players": self.number_of_players,
                 "number_of_rounds": self.number_of_rounds,
                 "ID": self.ID,
                 "players": self.players,
-                "rounds": self.rounds
+                "rounds": rounds_dict,
+                "state": state
         }
+
+
+if __name__ == "__main__":
+    tournament = Tournament("Nom du tournois", "Lieu", "2021-05-06", "Bullet", "Petit tournois de test", "8")
+    player_number = 1
+    for p in range(tournament.number_of_players):
+        player_name = "Player{}".format(player_number)
+        first_name = input("Quel est le prénom du joueur {} ? ".format(player_number))
+        last_name = input("Quel est son nom ? ")
+        birthdate = input("Quelle est sa date de naissance (AAAA-MM-JJ) ")
+        gender = input("Quel est son sexe ? (M ou F) ")
+        rank = "3000"
+        players = [first_name, last_name, birthdate, gender, rank]
+        player = player_manager.create(players)
+        tournament.players[player.ID] = [0.0, player.rank]
+        print("{} créé ! ".format(player_name))
+        player_number += 1
+    round_number = 1
+    print(tournament.players)
+    for r in range(tournament.number_of_rounds):
+        tournament.players = player_manager.sort_players(tournament.players)
+        print(tournament.players)
+        round = tournament.create_round(round_number, tournament.players)
+        tournament.rounds.append(round)
+        round_number += 1
