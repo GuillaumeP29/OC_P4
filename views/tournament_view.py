@@ -258,3 +258,9 @@ class TournamentView:
         print("""Souhaitez vous vraiment remplacer "{}" par "{}" ? """.format(
             tournament["description"], new_description))
         return new_description
+
+    @staticmethod
+    def display_round(tournament_name: str, round_number: int):
+        round_name = "round{}".format(str(round_number))
+        print(tournament_name)
+        print(round_name)

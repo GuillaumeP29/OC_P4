@@ -67,6 +67,7 @@ while run:
                             round_number = len(tournament.rounds) + 1
                             round = tournament.create_round(round_number)
                             scores = []
+                            TournamentView.display_round(tournament.name, round_number)
                             for match in round.matchs:
                                 score = TournamentView.play_match(round.matchs, match)
                                 scores.append(score)
@@ -77,9 +78,12 @@ while run:
                                     tournament_manager.save_tournament(tournament)
                                     break
                                 elif entry == 1:
+                                    tournament_manager.save_tournament(tournament)
                                     continue
                                 elif entry == 2:
                                     break
+                            else:
+                                tournament_manager.save_tournament(tournament)
                         run_tournament = False
             elif entry_t_management == 3:  # 1.3 Quitter
                 tournaments_menu = False
