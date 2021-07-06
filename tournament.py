@@ -57,13 +57,13 @@ class Tournament:
         except AttributeError as e:
             errors.append(("matchs_combinations", str(e)))
         try:
-            self.players = players
-        except AttributeError as e:
-            errors.append(("players", str(e)))
-        try:
             self.rounds = rounds
         except AttributeError as e:
             errors.append(("rounds", str(e)))
+        try:
+            self.players = players
+        except AttributeError as e:
+            errors.append(("players", str(e)))
         try:
             self.isover = isover
         except AttributeError as e:
@@ -247,6 +247,22 @@ class Tournament:
                 for player in self.players:
                     ID_list.append(player["ID"])
                 self.__matchs_combinations = list(combinations(ID_list, 2))
+                if self.rounds is not None:
+                    rounds_dict = {}
+                    for round in self.rounds:
+                        rounds_dict[round] = self.rounds[round].serialize()
+                    rounds_list = list(rounds_dict.values())
+                    for round in rounds_list:
+                        matchs_list = list(round.values())
+                        for match in matchs_list:
+                            player1 = match["player 1"]["ID"]
+                            player2 = match["player 2"]["ID"]
+                            combi1 = (player1, player2)
+                            combi2 = (player2, player1)
+                            if combi1 in self.matchs_combinations:
+                                self.__matchs_combinations.remove(combi1)
+                            else:
+                                self.__matchs_combinations.remove(combi2)
             else:
                 self.__matchs_combinations = value
         else:

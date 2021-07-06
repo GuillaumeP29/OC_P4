@@ -145,9 +145,20 @@ class Round:
         try_nb = 1
         ID_list = list(self.ID_tuple)
         while len(ID_list) >= 2:
-            print("essai n° : ", try_nb)
-            try:
-                while len(ID_list) >= 2:  # tant qu'il y a des joueurs dans la liste
+            while len(ID_list) >= 2:  # tant qu'il y a des joueurs dans la liste
+                print(first_player)
+                print(second_player)
+                print(ID_list)
+                if (second_player + 1) > len(ID_list):
+                    try_nb += 1
+                    second_player = try_nb
+                    ID_list = list(self.ID_tuple)
+                    matchs = []
+                    for combi in deleted_combi_list:
+                        matchs_combinations.append(combi)
+                    deleted_combi_list = []
+                    break
+                else:
                     combi1 = (ID_list[first_player], ID_list[second_player])
                     combi2 = (ID_list[second_player], ID_list[first_player])
                     if combi1 in matchs_combinations:  # si les deux joueurs n'ont jamais combattu
@@ -166,14 +177,6 @@ class Round:
                         second_player = 1
                     else:
                         second_player += 1
-            except:
-                try_nb += 1
-                second_player = try_nb
-                ID_list = list(self.ID_tuple)
-                matchs = []
-                for combi in deleted_combi_list:
-                    matchs_combinations.append(combi)
-                deleted_combi_list = []
         return matchs, matchs_combinations
 
     def create_matchs(self, players: list, matchs_combinations: list[int, int]):
