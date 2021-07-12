@@ -59,3 +59,13 @@ Pour assurer le bon fonctionnement du programme, veuillez créer le dossier et l
 # 7. Lancer le programme
 ---
 Il ne vous reste plus qu'à lancer le programme depuis la console à l'aide de la commande : " *python main.py* "
+
+
+# 8. Générer le rapport d'erreur flake8
+---
+#### Installer flake8 :
+Celui-ci a normalement déjà été instllé grâce au fichier requirements.txt.
+Cependant, si vous n'avez pas pu l'installer de cette manière, veuillez entrer la commande suivante dans votre console : " *pip install flake8* "
+#### Lancer le rapport d'erreur :
+Entrez la commande suivante dans votre console :
+" *flake8 --format=html --htmldir=flake-report --select main.py,constants.py,match.py,plyer_manager.py,player.py,round.py,tournament_manager.py,tournament.py,views/main_view.py,views/player_view.py,views/tournament_view.py* "
