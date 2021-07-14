@@ -1,4 +1,5 @@
 import re
+from constants import *
 
 
 class PlayerView:
@@ -10,7 +11,7 @@ class PlayerView:
         while entry not in entry_list:
             entry = input("1: Ajouter un joueur depuis la liste de joueurs\n2: Créer un nouveau joueur\n")
             if entry not in entry_list:
-                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(*entry_list))
+                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(entry_list))
         return int(entry)
 
     @staticmethod
@@ -35,7 +36,7 @@ class PlayerView:
         ID_OK = False
         while not ID_OK:
             player_ID = input("Entrez l'ID du joueur à sélectionner : ")
-            if re.match(r'^[0-9]{1,4}$', player_ID):
+            if re.match(REGEX_PLAYER_ID, player_ID):
                 if int(player_ID) <= higher_ID:
                     if int(player_ID) not in players_ID:
                         ID_OK = True
@@ -50,30 +51,30 @@ class PlayerView:
     @staticmethod
     def new_player():
         first_name = ""
-        while not re.match(r'^[a-zA-Z- àéèçîôâûùäëïüö]{2,30}$', first_name):
+        while not re.match(REGEX_FIRST_NAME, first_name):
             first_name = input("Quel est le prénom du nouveau joueur ? ")
-            if not re.match(r'^[a-zA-Z- àéèçîôâûùäëïüö]{2,30}$', first_name):
+            if not re.match(REGEX_FIRST_NAME, first_name):
                 print("""
                     Le prénom du joueur doit faire entre 2 et 30 caractères et ne doit pas comporter de chiffre
                     """)
         last_name = ""
-        while not re.match(r'^[a-zA-Z- àéèçîôâûùäëïüö]{2,30}$', last_name):
+        while not re.match(REGEX_LAST_NAME, last_name):
             last_name = input("Quel est son nom de famille ? ")
-            if not re.match(r'^[a-zA-Z- àéèçîôâûùäëïüö]{2,30}$', first_name):
+            if not re.match(REGEX_LAST_NAME, first_name):
                 print("""
                     Le nom de famille du joueur doit faire entre 2 et 30 caractères et ne doit pas comporter de chiffre
                     """)
         birthdate = ""
-        while not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', birthdate):
+        while not re.match(REGEX_BIRTHDATE, birthdate):
             birthdate = input("Veuillez entrer sa date de naissance (AAAA/MM/JJ) : ")
-            if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', birthdate):
+            if not re.match(REGEX_BIRTHDATE, birthdate):
                 print("""Vous devez rentrer une date sous le format : "AAAA-MM-JJ" """)
         gender = ""
         gender_list = ("M", "F")
         while gender not in gender_list:
             gender = input("Quel est le sexe du joueur (M ou F) ? ")
             if gender not in gender_list:
-                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(*gender_list))
+                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(gender_list))
         pronoun = ""
         termination = ""
         if gender == "M":
@@ -88,17 +89,19 @@ class PlayerView:
                 "{} est-{} classé{} (1: Oui ; 2: Non) ? ".format(first_name, pronoun, termination)
                 )
             if ranked not in ranked_list:
-                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(*ranked_list))
+                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(ranked_list))
         rank = None
         if int(ranked) == 1:
             rank_OK = False
             while not rank_OK:
                 rank = input("Quel est son rang ? ")
-                if re.match(r'^[0-9]{1,4}$', rank):
+                if re.match(REGEX_RANK, rank):
                     if 0 < int(rank) <= 3000:
                         rank_OK = True
                 if not rank_OK:
                     print("Le rang du joueur doit être un nombre compris entre 1 et 3000")
+        if not rank:
+            rank = 3000
         return first_name, last_name, birthdate, gender, int(rank)
 
     @staticmethod
@@ -114,7 +117,7 @@ class PlayerView:
                 \n4 : Quitter le programme\
                 \n""")
             if entry not in entry_list:
-                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(*entry_list))
+                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(entry_list))
         return int(entry)
 
     @staticmethod
@@ -126,7 +129,7 @@ class PlayerView:
                 \nOui : Veuillez indiquer l'ID du joueur qui vous intéresse\
                 \nNon : Entrez '0' pour retourner au menu précédent\
                 \n""")
-            if re.match(r'^[0-9]{1,4}$', player_ID):
+            if re.match(REGEX_PLAYER_ID, player_ID):
                 if int(player_ID) <= higher_ID:
                     ID_OK = True
                 else:
@@ -146,7 +149,7 @@ class PlayerView:
                 \n0 : Non, retourner au menu précédent\
                 \n""")
             if entry not in entry_list:
-                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(*entry_list))
+                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(entry_list))
         return int(entry)
 
     @staticmethod
@@ -162,16 +165,16 @@ class PlayerView:
                 \n4 : La date de naissance du joueur\
                 \n""")
             if entry not in entry_list:
-                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(*entry_list))
+                print("""Vous devez rentrer une des valeurs suivantes : {} """.format(entry_list))
         return int(entry)
 
     @staticmethod
     def player_first_name_modification(player: dict):
         print("""Vous allez modifier le prénom du joueur : {}""".format(player["first_name"]))
         new_first_name = ""
-        while not re.match(r'^[0-9a-zA-Z- àéèçîôâûùäëïüö]{2,30}$', new_first_name):
+        while not re.match(REGEX_FIRST_NAME, new_first_name):
             new_first_name = input("""Veuillez indiquer le nouveau prénom du joueur\n""")
-            if not re.match(r'^[0-9a-zA-Z- àéèçîôâûùäëïüö]{2,30}$', new_first_name):
+            if not re.match(REGEX_FIRST_NAME, new_first_name):
                 print("""Le prénom du joueur doit faire entre 2 et 30 caractères""")
         print("""Souhaitez vous vraiment remplacer "{}" par "{}" ? """.format(
             player["first_name"], new_first_name))
@@ -181,9 +184,9 @@ class PlayerView:
     def player_last_name_modification(player: dict):
         print("""Vous allez modifier le nom de famille du joueur : {}""".format(player["last_name"]))
         new_last_name = ""
-        while not re.match(r'^[0-9a-zA-Z- àéèçîôâûùäëïüö]{2,30}$', new_last_name):
+        while not re.match(REGEX_LAST_NAME, new_last_name):
             new_last_name = input("""Veuillez indiquer le nouveau nom de famille du joueur\n""")
-            if not re.match(r'^[0-9a-zA-Z- àéèçîôâûùäëïüö]{2,30}$', new_last_name):
+            if not re.match(REGEX_LAST_NAME, new_last_name):
                 print("""Le nom de famille du joueur doit faire entre 2 et 30 caractères""")
         print("""Souhaitez vous vraiment remplacer "{}" par "{}" ? """.format(
             player["last_name"], new_last_name))
@@ -196,7 +199,7 @@ class PlayerView:
         new_rank_OK = False
         while not new_rank_OK:
             new_rank = input("""Veuillez indiquer le nouveau rang du joueur\n""")
-            if re.match(r'^[0-9]{1,4}$', new_rank):
+            if re.match(REGEX_RANK, new_rank):
                 if 0 < int(new_rank) <= 3000:
                     new_rank_OK = True
             if not new_rank_OK:
@@ -209,9 +212,9 @@ class PlayerView:
     def player_birthdate_modification(player: dict):
         print("""Vous allez modifier la date de naissance du joueur : {}""".format(player["birthdate"]))
         new_birthdate = ""
-        while not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', new_birthdate):
+        while not re.match(REGEX_BIRTHDATE, new_birthdate):
             new_birthdate = input("""Veuillez indiquer la nouvelle date de naissance du joueur (AAAA/MM/JJ)\n""")
-            if not re.match(r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$', new_birthdate):
+            if not re.match(REGEX_BIRTHDATE, new_birthdate):
                 print("""Vous devez rentrer une date sous le format : "AAAA-MM-JJ" """)
         print("""Souhaitez vous vraiment remplacer "{}" par "{}" ? """.format(
             player["birthdate"], new_birthdate))

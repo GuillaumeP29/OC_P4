@@ -12,7 +12,7 @@ class MainView:
                 \n3: quitter le programme\
                 \n""")
             if entry not in entry_list:
-                print("Vous devez rentrer une des valeur suivantes : {}".format(*entry_list))
+                print("Vous devez rentrer une des valeur suivantes : {}".format(entry_list))
         return int(entry)
 
     @staticmethod
@@ -28,7 +28,7 @@ class MainView:
             \n3 : Quitter le programme\
             \n""")
             if entry not in entry_list:
-                print("Vous devez rentrer une des valeur suivantes : {}".format(*entry_list))
+                print("Vous devez rentrer une des valeur suivantes : {}".format(entry_list))
         return int(entry)
 
     @staticmethod
@@ -38,7 +38,7 @@ class MainView:
         while entry not in entry_list:
             entry = (input("""\n0 : Non\n1 : Oui\n"""))
             if entry not in entry_list:
-                print("Vous devez rentrer une des valeur suivantes : {}".format(*entry_list))
+                print("Vous devez rentrer une des valeur suivantes : {}".format(entry_list))
         return int(entry)
 
     @staticmethod

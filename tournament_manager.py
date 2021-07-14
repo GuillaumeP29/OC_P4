@@ -14,7 +14,8 @@ class TournamentManager:
         with open("JSON/tournaments.json") as f:
             tournaments = json.load(f)
             for tournament_data in tournaments:
-                self.tournaments.append(tournament_data)
+                if tournament_data not in self.tournaments:
+                    self.tournaments.append(tournament_data)
 
     def create(self, tournament: Union[dict, list]):
         """Create the tournament"""

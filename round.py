@@ -1,9 +1,11 @@
+import datetime
 from match import Match
 
 
 class Round:
 
-    def __init__(self, round_number: int, number_of_players: int, matchs: dict = None):
+    def __init__(self, round_number: int, number_of_players: int, matchs: dict = None,
+                 start_date: datetime.datetime = None, end_date: datetime.datetime = None):
         errors = []
         try:
             self.round_number = round_number
@@ -33,8 +35,16 @@ class Round:
             self.isover = False
         except AttributeError as e:
             errors.appends(("isover", str(e)))
+        try:
+            self.start_date = start_date
+        except AttributeError as e:
+            errors.append(("start_date", str(e)))
+        try:
+            self.end_date = end_date
+        except AttributeError as e:
+            errors.append(("start_date", str(e)))
         if errors:
-            raise Exception(errors)
+            errors.append(("end_date", str(e)))
 
     @property
     def round_number(self) -> int:
@@ -79,12 +89,12 @@ class Round:
             self.__matchs = {}
         elif isinstance(value, dict):
             self.__matchs = {}
-            for match in value:
+            for match in value["matchs"]:
                 players_values = []
-                for player in value[match]:
-                    players_values.append(value[match][player]["ID"])
-                for player in value[match]:
-                    players_values.append(value[match][player]["score"])
+                for player in value["matchs"][match]:
+                    players_values.append(value["matchs"][match][player]["ID"])
+                for player in value["matchs"][match]:
+                    players_values.append(value["matchs"][match][player]["score"])
                 m = Match(*players_values)
                 self.__matchs[match] = m
         elif isinstance(value, list):
@@ -116,6 +126,32 @@ class Round:
     def isover(self, value: bool):
         if isinstance(value, bool):
             self.__isover = value
+            if self.isover == True:
+                self.end_date = datetime.datetime.now()
+
+    @property
+    def start_date(self) -> datetime.datetime:
+        return self.__start_date
+    
+    @start_date.setter
+    def start_date(self, value: datetime.datetime):
+        if isinstance(value, datetime.datetime):
+            self.__start_date = value
+        elif value is None:
+            self.__start_date = datetime.datetime.now()
+        else:
+            raise AttributeError("La date de début du round doit être un objet datetime.datetime")
+
+    @property
+    def end_date(self) -> datetime.datetime:
+        return self.__end_date
+    
+    @end_date.setter
+    def end_date(self, value: datetime.datetime):
+        if isinstance(value, datetime.datetime) or value is None:
+            self.__end_date = value
+        else:
+            raise AttributeError("La date de fin du round doit être un objet datetime.datetime")
 
     def sort_players(self, list_to_sort: list):
         sorted_list = sorted(list_to_sort, key=lambda item: (-item.get("score"), item.get("rank")))
@@ -211,11 +247,16 @@ class Round:
         return round_scores
 
     def serialize(self):
+        round_dict = {}
         matchs_dict = {}
         for match in self.matchs:
             matchs_dict[match] = self.matchs[match].serialize()
-        return matchs_dict
+        round_dict["start_date"] = str(self.start_date)
+        round_dict["end_date"] = str(self.end_date)
+        round_dict["matchs"] = matchs_dict
+        return round_dict
 
 
 if __name__ == "__main__":
-    pass
+    round = Round(4,8)
+    print(round.number_of_players)

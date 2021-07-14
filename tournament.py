@@ -181,9 +181,9 @@ class Tournament:
     @players.setter
     def players(self, value: list):
         if not value:
-            value = []  # mettre le self.__players = value à la fin
+            value = []
         elif isinstance(value, list):
-            if isinstance(value[0], dict):  # rajouter un for pour vérifier chaque valeur et pas seulement la [0]
+            if isinstance(value[0], dict):
                 players = []
                 for player in value:
                     players.append(player)
@@ -253,7 +253,7 @@ class Tournament:
                         rounds_dict[round] = self.rounds[round].serialize()
                     rounds_list = list(rounds_dict.values())
                     for round in rounds_list:
-                        matchs_list = list(round.values())
+                        matchs_list = list(round["matchs"].values())
                         for match in matchs_list:
                             player1 = match["player 1"]["ID"]
                             player2 = match["player 2"]["ID"]
