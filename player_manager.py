@@ -72,7 +72,7 @@ class PlayerManager:
                     player_exist = True
             if player_exist is False:
                 self.players.append(player.serialize())
-        with open('JSON/players2.json', 'w') as f:
+        with open('JSON/players.json', 'w') as f:
             json.dump(self.players, f, indent=4)
 
 
