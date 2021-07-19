@@ -1,10 +1,11 @@
 import re
-import constants 
+import constants
 from views.tournament_view import TournamentView
 from views.player_view import PlayerView
 from tournament_manager import tournament_manager
 from player_manager import player_manager
 from views.main_view import MainView
+
 
 class Main:
     def run_program(self):
@@ -46,7 +47,7 @@ class Main:
                             while not re.match(constants.REGEX_LOCATION, location):
                                 location = TournamentView.tournament_location()
                                 if not re.match(constants.REGEX_LOCATION, location):
-                                    MainView.error(constants.TOURNAMENT_LOCATION_ERROR)        
+                                    MainView.error(constants.TOURNAMENT_LOCATION_ERROR)
                             date = ""
                             while not re.match(constants.REGEX_DATE, date):
                                 date = TournamentView.tournament_date()
@@ -81,7 +82,8 @@ class Main:
                                     MainView.error(constants.NUMBER_OF_ROUNDS_ERROR)
                             TournamentView.tournament_players(name)
                             tournament_data = [
-                                name, location, date, time_control, description, int(number_of_players), int(number_of_rounds)
+                                name, location, date, time_control, description, int(number_of_players),
+                                int(number_of_rounds)
                                 ]
                             tournament = tournament_manager.new_tournament(*tournament_data)
                             players_ID = []
@@ -186,7 +188,9 @@ class Main:
                                     tournaments_list.append(tournament["ID"])
                                     if tournament_nb == 1:
                                         TournamentView.in_progress_tournaments_title()
-                                    TournamentView.display_in_progress_tournament(tournament_nb, tournament, next_round)
+                                    TournamentView.display_in_progress_tournament(
+                                        tournament_nb, tournament, next_round
+                                    )
                                     tournament_nb += 1
                             entry = ""
                             entry_OK = False
@@ -505,7 +509,7 @@ class Main:
                                     if entry == 0:
                                         continue
                                     elif entry == 1:  # Prénom
-                                        new_first_name =  ""
+                                        new_first_name = ""
                                         while not re.match(constants.REGEX_FIRST_NAME, new_first_name):
                                             new_first_name = PlayerView.player_first_name()
                                             if not re.match(constants.REGEX_FIRST_NAME, new_first_name):
@@ -525,7 +529,7 @@ class Main:
                                             selected_player["first_name"] = new_first_name
                                             MainView.data_changed("Prénom")
                                     elif entry == 2:  # Nom
-                                        new_last_name =  ""
+                                        new_last_name = ""
                                         while not re.match(constants.REGEX_LAST_NAME, new_last_name):
                                             new_last_name = PlayerView.player_last_name()
                                             if not re.match(constants.REGEX_LAST_NAME, new_last_name):
@@ -545,7 +549,7 @@ class Main:
                                             selected_player["last_name"] = new_last_name
                                             MainView.data_changed("Nom de famille")
                                     elif entry == 3:  # Rang
-                                        new_rank =  ""
+                                        new_rank = ""
                                         while not re.match(constants.REGEX_RANK, new_rank):
                                             new_rank = PlayerView.rank()
                                             if not re.match(constants.REGEX_RANK, new_rank):
@@ -565,7 +569,7 @@ class Main:
                                             selected_player["rank"] = new_rank
                                             MainView.data_changed("Rang")
                                     elif entry == 4:  # Date
-                                        new_birthdate =  ""
+                                        new_birthdate = ""
                                         while not re.match(constants.REGEX_DATE, new_birthdate):
                                             new_birthdate = PlayerView.birthdate()
                                             if not re.match(constants.REGEX_DATE, new_birthdate):

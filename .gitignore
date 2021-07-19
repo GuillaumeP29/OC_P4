@@ -2,6 +2,6 @@
 /JSON
 __pycache__/
 views/__pycache__/
-flake-report/back.svg
-flake-report/file.svg
+/flake-report
+/.vscode
 .flake8

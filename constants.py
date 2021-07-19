@@ -20,7 +20,9 @@ TOURNAMENT_LOCATION_ERROR = """
 TOURNAMENT_DESCRIPTION_ERROR = """La description du tournoi doit faire entre 2 et 250 caractères"""
 NUMBER_OF_PLAYERS_ERROR = """Veuillez entrer un nombre entre 8 et 99"""
 NUMBER_OF_ROUNDS_ERROR = """Veuillez entrer un nombre entre 2 et 8"""
-PLAYER_FIRST_NAME_ERROR = """Le prénom du joueur doit faire entre 2 et 30 caractères et ne doit pas comporter de chiffre"""
+PLAYER_FIRST_NAME_ERROR = """
+    Le prénom du joueur doit faire entre 2 et 30 caractères et ne doit pas comporter de chiffre
+"""
 PLAYER_LAST_NAME_ERROR = """
     Le nom de famille du joueur doit faire entre 2 et 30 caractères et ne doit pas comporter de chiffre
 """

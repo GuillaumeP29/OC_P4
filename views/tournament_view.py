@@ -1,7 +1,3 @@
-import constants
-import re
-
-
 class TournamentView:
     @staticmethod
     def tournament_management():
@@ -22,7 +18,7 @@ class TournamentView:
     def new_tournament():
         print("Vous voici dans l'outil de création d'un nouveau tournoi")
         print("Veuillez entrer les informations relatives au tournoi : ")
-    
+
     @staticmethod
     def tournament_players(name):
         print("""Le tournoi {} a bien été créé !\
@@ -146,13 +142,13 @@ class TournamentView:
     def tournament_name():
         new_name = input("""Veuillez indiquer le nom du tournoi\n""")
         return new_name
-    
+
     @staticmethod
     def tournament_name_modification(tournament: dict):
         print("""Vous allez modifier le nom du tournoi : {}""".format(tournament["name"]))
 
     @staticmethod
-    def tournament_name_confirmation(tournament:dict, new_name):
+    def tournament_name_confirmation(tournament: dict, new_name):
         print("""Souhaitez vous vraiment remplacer "{}" par "{}" ? """.format(
             tournament["name"], new_name))
 
@@ -171,7 +167,7 @@ class TournamentView:
         print("""Vous allez modifier la date du tournoi : {}""".format(tournament["date"]))
 
     @staticmethod
-    def tournament_date_confirmation(tournament:dict, new_date):
+    def tournament_date_confirmation(tournament: dict, new_date):
         print("""Souhaitez vous vraiment remplacer "{}" par "{}" ? """.format(
             tournament["date"], new_date))
 
@@ -195,7 +191,7 @@ class TournamentView:
         print("""Vous allez modifier la description du tournoi : {}""".format(tournament["description"]))
 
     @staticmethod
-    def tournament_description_confirmation(tournament:dict, new_description):
+    def tournament_description_confirmation(tournament: dict, new_description):
         print("""Souhaitez vous vraiment remplacer "{}" par "{}" ? """.format(
             tournament["description"], new_description))
 

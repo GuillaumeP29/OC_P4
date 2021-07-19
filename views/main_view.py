@@ -3,7 +3,7 @@ class MainView:
     def main():
         print("Bienvenue dans le menu principal du programme de tournoi Suisse de jeu d'échec")
         print("Que souhaitez-vous faire ?")
-    
+
     @staticmethod
     def main_menu():
         entry = input("""\
@@ -12,15 +12,15 @@ class MainView:
             \n3: quitter le programme\
             \n""")
         return entry
-    
+
     @staticmethod
     def correct_value(entry_list):
         print("Vous devez rentrer une des valeur suivantes : {}".format(entry_list))
-    
+
     @staticmethod
     def error(error):
         print(error)
-    
+
     @staticmethod
     def ID_error(higher_ID):
         print("Le nombre doit être entier et se situer entre 0 et {}".format(higher_ID))

@@ -1,8 +1,3 @@
-import re
-from views.main_view import MainView
-from constants import *
-
-
 class PlayerView:
     @staticmethod
     def way_to_add_player(player: int):

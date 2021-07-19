@@ -42,9 +42,9 @@ class Round:
         try:
             self.end_date = end_date
         except AttributeError as e:
-            errors.append(("start_date", str(e)))
-        if errors:
             errors.append(("end_date", str(e)))
+        if errors:
+            raise Exception(errors)
 
     @property
     def round_number(self) -> int:
@@ -126,13 +126,13 @@ class Round:
     def isover(self, value: bool):
         if isinstance(value, bool):
             self.__isover = value
-            if self.isover == True:
+            if self.isover is True:
                 self.end_date = datetime.datetime.now()
 
     @property
     def start_date(self) -> datetime.datetime:
         return self.__start_date
-    
+
     @start_date.setter
     def start_date(self, value: datetime.datetime):
         if isinstance(value, datetime.datetime):
@@ -145,7 +145,7 @@ class Round:
     @property
     def end_date(self) -> datetime.datetime:
         return self.__end_date
-    
+
     @end_date.setter
     def end_date(self, value: datetime.datetime):
         if isinstance(value, datetime.datetime) or value is None:
@@ -258,5 +258,5 @@ class Round:
 
 
 if __name__ == "__main__":
-    round = Round(4,8)
+    round = Round(4, 8)
     print(round.number_of_players)
