@@ -71,10 +71,12 @@ Il ne vous reste plus qu'à lancer le programme depuis la console à l'aide de l
 
 # 8. Générer le rapport d'erreur flake8
 #### Installer flake8 :
-Celui-ci a normalement déjà été instllé grâce au fichier requirements.txt.
+Celui-ci a normalement déjà été installé grâce au fichier requirements.txt.
 Cependant, si vous n'avez pas pu l'installer de cette manière, veuillez entrer la commande suivante dans votre console : " *pip install flake8* "
+Un fichier .flake8 est inclus au projet afin de faciliter la création du rapport flake8. Il est tout de même possible de le supprimer ou le modifier pour personnaliser le rapport.
 #### Lancer le rapport d'erreur :
 Entrez la commande suivante dans votre console :
-" *flake8 --format=html --htmldir=flake-report* "
+" *flake8* "
+Cette commande sera configurée automatiquement par le fichier .flake8 inclus au projet.
 
 ---
