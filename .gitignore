@@ -4,4 +4,3 @@ __pycache__/
 views/__pycache__/
 /flake-report
 /.vscode
-.flake8

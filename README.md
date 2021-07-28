@@ -75,6 +75,6 @@ Celui-ci a normalement déjà été instllé grâce au fichier requirements.txt.
 Cependant, si vous n'avez pas pu l'installer de cette manière, veuillez entrer la commande suivante dans votre console : " *pip install flake8* "
 #### Lancer le rapport d'erreur :
 Entrez la commande suivante dans votre console :
-" *flake8 --format=html --htmldir=flake-report --select main.py,constants.py,match.py,plyer_manager.py,player.py,round.py,tournament_manager.py,tournament.py,views/main_view.py,views/player_view.py,views/tournament_view.py* "
+" *flake8 --format=html --htmldir=flake-report* "
 
 ---
