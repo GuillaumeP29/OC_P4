@@ -142,5 +142,21 @@
         "gender": "M",
         "rank": 3000,
         "ID": 14
+    },
+    {
+        "first_name": "Ma\u00ebl",
+        "last_name": "Voiture",
+        "birthdate": "1993-02-16",
+        "gender": "M",
+        "rank": 2487,
+        "ID": 19
+    },
+    {
+        "first_name": "Guillaume",
+        "last_name": "Postec",
+        "birthdate": "1991-07-02",
+        "gender": "M",
+        "rank": 3000,
+        "ID": 20
     }
 ]

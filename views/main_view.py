@@ -42,6 +42,10 @@ class MainView:
         return entry
 
     @staticmethod
+    def cancel_data_change():
+        print("Modification annulée")
+
+    @staticmethod
     def data_changed(data: str):
         print("{} remplacé(e)".format(data))
 

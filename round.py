@@ -181,38 +181,31 @@ class Round:
         try_nb = 1
         ID_list = list(self.ID_tuple)
         while len(ID_list) >= 2:
-            while len(ID_list) >= 2:  # tant qu'il y a des joueurs dans la liste
-                print(first_player)
-                print(second_player)
-                print(ID_list)
-                if (second_player + 1) > len(ID_list):
-                    try_nb += 1
-                    second_player = try_nb
-                    ID_list = list(self.ID_tuple)
-                    matchs = []
-                    for combi in deleted_combi_list:
-                        matchs_combinations.append(combi)
-                    deleted_combi_list = []
-                    break
+            if (second_player + 1) > len(ID_list):  # Si les deux joueurs restant ont déjà joué ensemble:
+                try_nb += 1
+                second_player = try_nb
+                ID_list = list(self.ID_tuple)
+                matchs = []
+                for combi in deleted_combi_list:
+                    matchs_combinations.append(combi)
+                deleted_combi_list = []
+                break
+            else:
+                combi1 = (ID_list[first_player], ID_list[second_player])
+                combi2 = (ID_list[second_player], ID_list[first_player])
+                if (combi1 or combi2) in matchs_combinations:  # si les deux joueurs n'ont jamais combattu
+                    matchs.append(Match(ID_list[first_player], ID_list[second_player]))
+                    del ID_list[second_player]
+                    del ID_list[first_player]
+                    second_player = 1
                 else:
-                    combi1 = (ID_list[first_player], ID_list[second_player])
-                    combi2 = (ID_list[second_player], ID_list[first_player])
-                    if combi1 in matchs_combinations:  # si les deux joueurs n'ont jamais combattu
-                        matchs.append(Match(ID_list[first_player], ID_list[second_player]))  # On crée le match
-                        ID_list.remove(ID_list[second_player])  # On enlève les joueurs de la liste
-                        ID_list.remove(ID_list[first_player])  # Remplacer par des pop
-                        deleted_combi_list.append(combi1)
-                        matchs_combinations.remove(combi1)
-                        second_player = 1
-                    elif combi2 in matchs_combinations:
-                        matchs.append(Match(ID_list[first_player], ID_list[second_player]))
-                        del ID_list[second_player]
-                        del ID_list[first_player]
-                        deleted_combi_list.append(combi1)
-                        matchs_combinations.remove(combi2)
-                        second_player = 1
-                    else:
-                        second_player += 1
+                    second_player += 1
+                if combi1 in matchs_combinations:
+                    deleted_combi_list.append(combi1)
+                    matchs_combinations.remove(combi1)
+                if combi2 in matchs_combinations:
+                    deleted_combi_list.append(combi2)
+                    matchs_combinations.remove(combi2)
         return matchs, matchs_combinations
 
     def create_matchs(self, players: list, matchs_combinations: list[int, int]):
