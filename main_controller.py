@@ -43,7 +43,7 @@ class Main:
                             tournament_controller.add_players_to_tournament(tournament)
                             tournament_manager.save_tournament(tournament)
                             new_tournament = False
-                    elif entry_t_management == 2:  # 1.2 Choix d'un tournoi
+                    elif entry_t_management == 2:  # 1.2 Choix d'un tournoi à jouer
                         run_tournament = True
                         while run_tournament:
                             tournament_nb = 1
@@ -94,7 +94,6 @@ class Main:
                                             break
                                         elif entry == 1:
                                             tournament_manager.save_tournament(tournament)
-                                            continue
                                         elif entry == 2:
                                             break
                                     else:

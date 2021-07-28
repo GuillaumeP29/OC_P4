@@ -170,6 +170,7 @@ class TournamentController:
                 MainView.data_changed("Description")
 
     def play_round(self, tournament: type):
+        tournament = tournament
         round_number = len(tournament.rounds) + 1
         round = tournament.create_round(round_number)
         scores = []

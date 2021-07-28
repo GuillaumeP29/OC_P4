@@ -213,6 +213,7 @@ class Tournament:
             self.__rounds = {}
             round_number = 1
             for rd in value:
+                print("value[] : ", value[rd])
                 round = Round(round_number, self.number_of_players, value[rd])
                 self.__rounds[rd] = round
                 round_number += 1

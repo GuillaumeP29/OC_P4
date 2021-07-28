@@ -148,7 +148,7 @@ class Round:
 
     @end_date.setter
     def end_date(self, value: datetime.datetime):
-        if isinstance(value, datetime.datetime) or value is None:
+        if (isinstance(value, datetime.datetime)) or (value is None):
             self.__end_date = value
         else:
             raise AttributeError("La date de fin du round doit être un objet datetime.datetime")

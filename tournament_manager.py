@@ -10,7 +10,7 @@ class TournamentManager:
         self.tournaments = []
 
     def load_from_json(self):
-        """Load the whole tournaments.json file into """
+        """Load the whole tournaments.json file into self.tournaments"""
         with open("JSON/tournaments.json") as f:
             tournaments = json.load(f)
             for tournament_data in tournaments:
